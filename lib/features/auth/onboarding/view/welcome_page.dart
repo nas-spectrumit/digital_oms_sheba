@@ -4,6 +4,7 @@ import 'package:digital_oms_sheba/core/constant/height_width.dart';
 import 'package:digital_oms_sheba/core/constant/navigation_custom.dart';
 import 'package:digital_oms_sheba/core/services/device_info_controller.dart';
 import 'package:digital_oms_sheba/core/services/svg_preload.dart';
+import 'package:digital_oms_sheba/features/auth/information/view/information_list_page.dart';
 import 'package:digital_oms_sheba/features/auth/login/view/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -65,7 +66,7 @@ class WelcomePage extends StatelessWidget {
                     ],
                   ),
 
-                  // ── Middle Action Cards (লগইন | সাইন আপ) ────────────
+                  // ── Middle Action Cards (লগইন | তথ্য বাতায়ন) ────────────
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 24.0),
                     child: Column(
@@ -76,39 +77,37 @@ class WelcomePage extends StatelessWidget {
                         ),
                         height16(),
 
-                        // Card Button 1: লগইন
-                        _buildAuthCard(
-                          context: context,
-                          title: 'লগইন',
-                          subtitle: 'বিদ্যমান ওএমএস অ্যাকাউন্টে প্রবেশ করতে ট্যাপ করুন',
-                          svgPath: SvgMyAsset.login,
-                          isPrimary: true,
-                          badgeText: 'সরাসরি প্রবেশ',
-                          onTap: () {
-                            pushPage(context, const LoginPage());
-                          },
-                        ),
-
-                        height16(),
-
-                        // Card Button 2: সাইন আপ (Nothing to do, just button placed)
-                        _buildAuthCard(
-                          context: context,
-                          title: 'সাইন আপ',
-                          subtitle: 'নতুন ওএমএস কার্ডের জন্য নিবন্ধন করুন',
-                          svgPath: SvgMyAsset.beneficiaryRegistration,
-                          isPrimary: false,
-                          badgeText: 'নতুন সুবিধাভোগী',
-                          onTap: () {
-                            // Signup: nothing to do. Just place the button.
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('নতুন নিবন্ধন সেবা শীঘ্রই উন্মুক্ত করা হবে।'),
-                                duration: Duration(seconds: 2),
-                                behavior: SnackBarBehavior.floating,
+                        IntrinsicHeight(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Expanded(
+                                child: _buildAuthCard(
+                                  context: context,
+                                  title: 'লগইন',
+                                  subtitle: 'বিদ্যমান অ্যাকাউন্টে প্রবেশ করুন',
+                                  svgPath: SvgMyAsset.login,
+                                  isPrimary: true,
+                                  onTap: () {
+                                    pushPage(context, const LoginPage());
+                                  },
+                                ),
                               ),
-                            );
-                          },
+                              width16(),
+                              Expanded(
+                                child: _buildAuthCard(
+                                  context: context,
+                                  title: 'তথ্য বাতায়ন',
+                                  subtitle: 'গুরুত্বপূর্ণ তথ্য ও সেবাসমূহ',
+                                  iconData: Icons.info_outline_rounded,
+                                  isPrimary: false,
+                                  onTap: () {
+                                    pushPage(context, const InformationListPage());
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -203,9 +202,9 @@ class WelcomePage extends StatelessWidget {
     required BuildContext context,
     required String title,
     required String subtitle,
-    required String svgPath,
+    String? svgPath,
+    IconData? iconData,
     required bool isPrimary,
-    required String badgeText,
     required VoidCallback onTap,
   }) {
     final primary = myGreen;
@@ -216,6 +215,7 @@ class WelcomePage extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
         child: Ink(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 20.0),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
@@ -231,81 +231,46 @@ class WelcomePage extends StatelessWidget {
               ),
             ],
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-            child: Row(
-              children: [
-                // Icon Container
-                Container(
-                  width: 54,
-                  height: 54,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: isPrimary ? primary.withValues(alpha: 0.1) : Colors.grey.shade100,
-                    shape: BoxShape.circle,
-                  ),
-                  child: SvgPicture.asset(
-                    svgPath,
-                    colorFilter: ColorFilter.mode(isPrimary ? primary : Colors.grey.shade800, BlendMode.srcIn),
-                  ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Icon Container
+              Container(
+                width: 54,
+                height: 54,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: isPrimary ? primary.withValues(alpha: 0.1) : Colors.grey.shade100,
+                  shape: BoxShape.circle,
                 ),
-                width14(),
-
-                // Title & Subtitle
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            title,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w800,
-                              color: isPrimary ? primary : Colors.grey.shade900,
-                            ),
-                          ),
-                          width8(),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
-                            decoration: BoxDecoration(
-                              color: isPrimary ? primary.withValues(alpha: 0.12) : Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Text(
-                              badgeText,
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w700,
-                                color: isPrimary ? primary : Colors.grey.shade700,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      height5(),
-                      Text(
-                        subtitle,
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.grey.shade600),
-                      ),
-                    ],
-                  ),
+                child: svgPath != null
+                    ? SvgPicture.asset(
+                        svgPath,
+                        colorFilter: ColorFilter.mode(isPrimary ? primary : Colors.grey.shade800, BlendMode.srcIn),
+                      )
+                    : Icon(iconData, color: isPrimary ? primary : Colors.grey.shade800, size: 26),
+              ),
+              height14(),
+              // Title
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w800,
+                  color: isPrimary ? primary : Colors.grey.shade900,
                 ),
-
-                // Trailing Arrow Circle
-                Container(
-                  width: 34,
-                  height: 34,
-                  decoration: BoxDecoration(color: isPrimary ? primary : Colors.grey.shade100, shape: BoxShape.circle),
-                  child: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    size: 16,
-                    color: isPrimary ? Colors.white : Colors.grey.shade700,
-                  ),
-                ),
-              ],
-            ),
+                textAlign: TextAlign.center,
+              ),
+              height5(),
+              // Subtitle
+              Text(
+                subtitle,
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.grey.shade600, height: 1.3),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
         ),
       ),
