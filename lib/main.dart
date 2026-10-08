@@ -2,6 +2,7 @@ import 'package:digital_oms_sheba/core/constant/loadin_overlay.dart';
 import 'package:digital_oms_sheba/core/constant/themedata.dart';
 import 'package:digital_oms_sheba/core/providers/app_providers.dart';
 import 'package:digital_oms_sheba/core/services/svg_preload.dart';
+import 'package:digital_oms_sheba/features/auth/onboarding/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -26,8 +27,9 @@ class MyApp extends StatelessWidget {
       ),
       child: MaterialApp(
         title: 'Digital OMS Sheba',
+        debugShowCheckedModeBanner: false,
         theme: lightTheme,
-        home: const Center(child: Text('Digital OMS Sheba')),
+        home: const SplashPage(),
         builder: (context, child) {
           return Stack(children: [child ?? const SizedBox.shrink(), const GlobalLoadingOverlay()]);
         },
@@ -35,3 +37,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// flutter clean && flutter pub get && cd ios && pod install && cd ..

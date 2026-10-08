@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - unique_identifier (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - unique_identifier (from `.symlinks/plugins/unique_identifier/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  unique_identifier:
+    :path: ".symlinks/plugins/unique_identifier/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 71a624a5bc0c04062bf19101d501e466baf2fb47
+  unique_identifier: 759d781cf134d96de2161628a1d52014df19599c
+
+PODFILE CHECKSUM: 3ba3a73b1b12adcf321a227a745625fe0888cc82
+
+COCOAPODS: 1.17.0
