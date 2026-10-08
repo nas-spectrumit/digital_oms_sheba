@@ -1,5 +1,10 @@
+import 'dart:developer';
+
+import 'package:camera/camera.dart';
+import 'package:digital_oms_sheba/core/card_capture_widget/card_capture_page.dart';
 import 'package:digital_oms_sheba/core/constant/colors_custom.dart';
 import 'package:digital_oms_sheba/core/constant/height_width.dart';
+import 'package:digital_oms_sheba/core/constant/navigation_custom.dart';
 import 'package:flutter/material.dart';
 
 class UserDashboardPage extends StatefulWidget {
@@ -83,7 +88,22 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                           bgColor: Colors.white,
                           statusIcon: Icons.check_circle,
                           statusColor: Colors.green,
-                          onTap: () {},
+                          onTap: () async {
+                            final cameras = await availableCameras();
+                            if (context.mounted) {
+                              pushPage(
+                                context,
+                                KycCardCaptureCamera(
+                                  fileName: 'tcb_front',
+                                  cameras: cameras,
+                                  onImageCaptured: (String frontPath) {
+                                    log(frontPath);
+                                  },
+                                  hint: "কার্ডের সামনের অংশের ছবি তুলুন",
+                                ),
+                              );
+                            }
+                          },
                         ),
                       ),
                     ],
