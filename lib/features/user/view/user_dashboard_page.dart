@@ -12,375 +12,495 @@ class UserDashboardPage extends StatefulWidget {
 class _UserDashboardPageState extends State<UserDashboardPage> {
   int _currentBottomNavIndex = 0;
 
+  // TODO: replace with data from your API / model
+  static const _phase = 'জুলাই - ২০২৫ (স্মার্ট কার্ড-০৭)';
+  static const _package = 'A: ভোজ্য তেল (২ লিঃ)+ডাল (২ কেঃ)+চিনি (১ কে)';
+
+  // Shared tones taken from the screenshot
+  static const _panelColor = Color(0xFFE3F1E3); // light green panel
+  static const _headerGrey = Color(0xFFDDE5DD); // card header strip
+
   @override
   Widget build(BuildContext context) {
+    final minPanelHeight = MediaQuery.of(context).size.height * 0.55;
+
     return Scaffold(
-      backgroundColor: myGreenAccent, // Light green background based on app color
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: myGreen,
-            // Assuming we use a pattern or just green gradient/color
-            image: const DecorationImage(
-              image: AssetImage('assets/images/leaf_pattern.png'), // placeholder, may not exist
-              fit: BoxFit.cover,
-              opacity: 0.1,
-            ),
-          ),
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Row(
-                children: [
-                  const Icon(Icons.menu, color: Colors.white, size: 28),
-                  width12(),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'নাফিস এন্টারপ্রাইজ',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          'ইউজার আইডি : 01566666666',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.9),
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.white,
-                    child: Icon(Icons.person, color: Colors.grey),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+      backgroundColor: myGreenAccent,
+      appBar: const _DashboardAppBar(shopName: 'নাফিস এন্টারপ্রাইজ', userId: '01566666666'),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
         child: Column(
           children: [
-            // Top two cards
-            Row(
+            // ── Top info cards ──
+            const Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(child: _buildTopCard('ধাপ', 'জুলাই - ২০২৫ (স্মার্ট কার্ড-০৭)')),
-                width12(),
-                Expanded(child: _buildTopCard('প্যাকেজ', 'A: ভোজ্য তেল (২ লিঃ)+ডাল (২ কেঃ)+চিনি (১ কে)')),
+                Expanded(
+                  child: _InfoCard(title: 'ধাপ', value: _phase),
+                ),
+                SizedBox(width: 12),
+                Expanded(
+                  child: _InfoCard(title: 'প্যাকেজ', value: _package),
+                ),
               ],
             ),
             height16(),
-            // Main container
+
+            // ── Main panel ──
             Container(
-              padding: const EdgeInsets.all(16.0),
+              width: double.infinity,
+              constraints: BoxConstraints(minHeight: minPanelHeight),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
+                color: _panelColor,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.grey.shade300),
                 boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
+                  BoxShadow(color: Colors.black.withValues(alpha: 0.25), blurRadius: 6, offset: const Offset(0, 3)),
                 ],
               ),
               child: Column(
                 children: [
-                  // Action Buttons
                   Row(
                     children: [
                       Expanded(
-                        child: _buildActionButton(
+                        child: _ActionButton(
                           title: 'QR কোড স্ক্যান করুন',
                           icon: Icons.qr_code_2,
+                          iconColor: Colors.black87,
+                          bgColor: myRedAccent,
                           statusIcon: Icons.close,
                           statusColor: Colors.red,
-                          bgColor: myRedAccent,
-                          borderColor: myRedAccent,
+                          onTap: () {},
                         ),
                       ),
                       width12(),
                       Expanded(
-                        child: _buildActionButton(
+                        child: _ActionButton(
                           title: 'কার্ডের ছবি তুলুন',
-                          icon: Icons.camera_alt_outlined,
-                          statusIcon: Icons.check,
-                          statusColor: Colors.white,
-                          statusBgColor: Colors.green,
+                          icon: Icons.camera_alt,
+                          iconColor: myGreen,
                           bgColor: Colors.white,
-                          borderColor: myGreen,
+                          statusIcon: Icons.check_circle,
+                          statusColor: Colors.green,
+                          onTap: () {},
                         ),
                       ),
                     ],
                   ),
-                  height16(),
-                  // Warning text
-                  const Text(
-                    '!! বরাদ্দ না পেয়ে থাকলে বরাদ্দ প্রদানকারী কর্তৃপক্ষের সাথে যোগাযোগ করুন',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 12,
+                  const SizedBox(height: 10),
+                  // Single line, clipped like the screenshot.
+                  // Wrap it in a Marquee package widget if you want it to scroll.
+                  const SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      '!! বরাদ্দ না পেয়ে থাকলে বরাদ্দ প্রদানকারী কর্তৃপক্ষের সাথে যোগাযোগ করুন',
+                      maxLines: 1,
+                      softWrap: false,
+                      overflow: TextOverflow.clip,
+                      style: TextStyle(color: Colors.red, fontSize: 12, fontWeight: FontWeight.bold),
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                   ),
-                  height16(),
-                  // Allocation Details Card
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: myGreen),
-                    ),
-                    child: Column(
-                      children: [
-                        // Header
-                        Container(
-                          decoration: BoxDecoration(
-                            color: myGreen.withOpacity(0.1),
-                            borderRadius: const BorderRadius.vertical(top: Radius.circular(11)),
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                          child: Row(
-                            children: [
-                              Icon(Icons.account_balance_wallet, color: myGreen, size: 20),
-                              width10(),
-                              Expanded(
-                                child: Text(
-                                  'বরাদ্দ',
-                                  style: TextStyle(
-                                    color: myGreen,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              Icon(Icons.refresh, color: myBlue, size: 20),
-                            ],
-                          ),
-                        ),
-                        const Divider(height: 1, thickness: 1),
-                        // Details
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            children: [
-                              _buildDetailRow('ধাপ', ': জুলাই - ২০২৫ (স্মার্ট কার্ড-০৭)'),
-                              height5(),
-                              _buildDetailRow('প্যাকেজ', ': A: ভোজ্য তেল (২ লিঃ)+ডাল (২\n  কেঃ)+চিনি (১ কে)'),
-                              height5(),
-                              _buildDetailRow('ধাপ শুরুর তারিখ', ': 07-07-2025 (12:20 PM)'),
-                              height5(),
-                              _buildDetailRow('বরাদ্দের শেষ\nতারিখ', ': 25-07-2025 (12:20 PM)', labelColor: Colors.red, valueColor: Colors.red),
-                              height5(),
-                              _buildDetailRow('মোট বরাদ্দ', ': 2'),
-                              height5(),
-                              _buildDetailRow('মোট বিক্রয়', ': 0'),
-                              height5(),
-                              _buildDetailRow('অবশিষ্ট', ': 2'),
-                            ],
-                          ),
-                        ),
-                        Container(height: 5, color: Colors.grey.shade200),
-                        // Bottom Actions
-                        IntrinsicHeight(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextButton.icon(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.visibility_outlined, size: 16, color: Colors.black87),
-                                  label: const Text(
-                                    'বিস্তারিত দেখুন',
-                                    style: TextStyle(color: Colors.black87, fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                              const VerticalDivider(width: 1, thickness: 1),
-                              Expanded(
-                                child: TextButton.icon(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.insert_chart_outlined, size: 16, color: Colors.black87),
-                                  label: const Text(
-                                    'বিক্রয় রিপোর্ট\n(সংক্ষিপ্ত)',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.black87, fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                  const SizedBox(height: 10),
+                  const _AllocationCard(
+                    headerColor: _headerGrey,
+                    rows: [
+                      _Row('ধাপ', _phase),
+                      _Row('প্যাকেজ', _package),
+                      _Row('ধাপ শুরুর তারিখ', '07-07-2025 (12:20 PM)'),
+                      _Row('বরাদ্দের শেষ তারিখ', '25-07-2025 (12:20 PM)', isWarning: true),
+                      _Row('মোট বরাদ্দ', '2'),
+                      _Row('মোট বিক্রয়', '0'),
+                      _Row('অবশিষ্ট', '2'),
+                    ],
                   ),
                 ],
               ),
             ),
-            height16(),
-            // YouTube Button
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              decoration: BoxDecoration(
-                color: const Color(0xFFFBE9E7),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.play_circle_fill, color: Colors.red, size: 28),
-                  width12(),
-                  const Text(
-                    'পণ্য বিক্রয়ের নিয়মাবলীর টিউটোরিয়াল দেখুন',
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const SizedBox(height: 28),
+
+            // ── Tutorial button ──
+            const _TutorialButton(),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentBottomNavIndex,
-        onTap: (index) {
-          setState(() {
-            _currentBottomNavIndex = index;
-          });
-        },
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        backgroundColor: myGreen,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'হোম'),
-          BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: 'বিক্রয় রিপোর্ট'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'প্রোফাইল'),
+      bottomNavigationBar: _buildBottomNav(),
+    );
+  }
+
+  Widget _buildBottomNav() {
+    return BottomNavigationBar(
+      currentIndex: _currentBottomNavIndex,
+      onTap: (i) => setState(() => _currentBottomNavIndex = i),
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: myGreen,
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white,
+      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+      unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'হোম'),
+        BottomNavigationBarItem(icon: Icon(Icons.calendar_view_month), label: 'বিক্রয় রিপোর্ট'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'প্রোফাইল'),
+      ],
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// App bar
+// ─────────────────────────────────────────────────────────────
+class _DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String shopName;
+  final String userId;
+
+  const _DashboardAppBar({required this.shopName, required this.userId});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(80);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: myGreen,
+      elevation: 0,
+      toolbarHeight: 80,
+      automaticallyImplyLeading: false,
+      titleSpacing: 16,
+      // Background leaf pattern. errorBuilder avoids a crash if asset is missing.
+      flexibleSpace: Opacity(
+        opacity: 0.15,
+        child: Image.asset(
+          'assets/images/leaf_pattern.png',
+          fit: BoxFit.cover,
+          width: double.infinity,
+          errorBuilder: (_, _, _) => const SizedBox.shrink(),
+        ),
+      ),
+      title: Row(
+        children: [
+          const Icon(Icons.menu, color: Colors.white, size: 30),
+          width12(),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  shopName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'ইউজার আইডি : $userId',
+                  style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+          // Rounded-square avatar (as in screenshot)
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              width: 48,
+              height: 48,
+              color: Colors.white,
+              // TODO: Image.network(profileUrl, fit: BoxFit.cover)
+              child: const Icon(Icons.person, color: Colors.grey, size: 30),
+            ),
+          ),
         ],
       ),
     );
   }
+}
 
-  Widget _buildTopCard(String title, String subtitle) {
+// ─────────────────────────────────────────────────────────────
+// Top info card (grey header + white value box)
+// ─────────────────────────────────────────────────────────────
+class _InfoCard extends StatelessWidget {
+  final String title;
+  final String value;
+
+  const _InfoCard({required this.title, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFDDE5DD),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey.shade400, width: 0.8),
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          ),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+            decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
+            child: Text(value, style: const TextStyle(fontSize: 14, height: 1.3)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// Action button (QR / Camera) with status icon at the top-right
+// ─────────────────────────────────────────────────────────────
+class _ActionButton extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final Color iconColor;
+  final Color bgColor;
+  final IconData statusIcon;
+  final Color statusColor;
+  final VoidCallback onTap;
+
+  const _ActionButton({
+    required this.title,
+    required this.icon,
+    required this.iconColor,
+    required this.bgColor,
+    required this.statusIcon,
+    required this.statusColor,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: bgColor,
+      elevation: 3,
+      borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: onTap,
+        child: SizedBox(
+          height: 160,
+          child: Stack(
+            children: [
+              Positioned(top: 6, right: 6, child: Icon(statusIcon, color: statusColor, size: 28)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(icon, size: 52, color: iconColor),
+                    const SizedBox(height: 18),
+                    Text(
+                      title,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// Allocation card
+// ─────────────────────────────────────────────────────────────
+class _Row {
+  final String label;
+  final String value;
+  final bool isWarning;
+
+  const _Row(this.label, this.value, {this.isWarning = false});
+}
+
+class _AllocationCard extends StatelessWidget {
+  final Color headerColor;
+  final List<_Row> rows;
+
+  const _AllocationCard({required this.headerColor, required this.rows});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: myGreen, width: 1.5),
       ),
       child: Column(
         children: [
-          Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-          ),
-          height10(),
-          Text(
-            subtitle,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 13, color: Colors.grey.shade800),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildActionButton({
-    required String title,
-    required IconData icon,
-    required IconData statusIcon,
-    required Color statusColor,
-    Color? statusBgColor,
-    required Color bgColor,
-    required Color borderColor,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: borderColor, width: 1.5),
-      ),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 50,
-            width: 70,
-            child: Stack(
-              alignment: Alignment.center,
+          // Header
+          Container(
+            color: headerColor,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            child: Row(
               children: [
-                Icon(icon, size: 40, color: Colors.black87),
-                Positioned(
-                  top: 0,
-                  right: 0,
+                const SizedBox(width: 32), // balances refresh icon so title is centered
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.account_balance_wallet, color: myGreen, size: 22),
+                      width10(),
+                      const Text(
+                        'বরাদ্দ',
+                        style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black87),
+                      ),
+                    ],
+                  ),
+                ),
+                InkWell(
+                  onTap: () {}, // TODO: refresh
                   child: Container(
-                    padding: const EdgeInsets.all(2),
+                    width: 32,
+                    height: 32,
                     decoration: BoxDecoration(
-                      color: statusBgColor ?? Colors.transparent,
+                      color: myBlue,
                       shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2),
                     ),
-                    child: Icon(statusIcon, color: statusColor, size: 20),
+                    child: const Icon(Icons.refresh, color: Colors.white, size: 20),
                   ),
                 ),
               ],
             ),
           ),
-          height10(),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+
+          // Details
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+            child: Column(children: [for (final r in rows) _DetailRow(row: r)]),
+          ),
+
+          // Bottom actions
+          Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFFE8ECE8),
+              border: Border(top: BorderSide(color: Colors.grey.shade300, width: 4)),
+            ),
+            child: IntrinsicHeight(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: _BottomAction(icon: Icons.visibility_outlined, label: 'বিস্তারিত দেখুন', onTap: () {}),
+                  ),
+                  VerticalDivider(width: 1, thickness: 1, color: Colors.grey.shade400),
+                  Expanded(
+                    child: _BottomAction(
+                      icon: Icons.insert_chart_outlined,
+                      label: 'বিক্রয় রিপোর্ট\n(সংক্ষিপ্ত)',
+                      onTap: () {},
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
     );
   }
+}
 
-  Widget _buildDetailRow(String label, String value, {Color? labelColor, Color? valueColor}) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 4,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: labelColor ?? Colors.black87,
+class _DetailRow extends StatelessWidget {
+  final _Row row;
+
+  const _DetailRow({required this.row});
+
+  @override
+  Widget build(BuildContext context) {
+    final color = row.isWarning ? Colors.red : Colors.black87;
+    final weight = row.isWarning ? FontWeight.bold : FontWeight.w500;
+    final style = TextStyle(fontSize: 14, color: color, fontWeight: weight);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(flex: 4, child: Text(row.label, style: style)),
+          SizedBox(width: 14, child: Text(':', style: style)),
+          Expanded(flex: 7, child: Text(row.value, style: style)),
+        ],
+      ),
+    );
+  }
+}
+
+class _BottomAction extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  const _BottomAction({required this.icon, required this.label, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 18, color: Colors.black87),
+            const SizedBox(width: 8),
+            Flexible(
+              child: Text(
+                label,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.black87, fontSize: 12),
+              ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// Tutorial button
+// ─────────────────────────────────────────────────────────────
+class _TutorialButton extends StatelessWidget {
+  const _TutorialButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: const Color(0xFFFDF4FB),
+      elevation: 2,
+      borderRadius: BorderRadius.circular(6),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(6),
+        onTap: () {}, // TODO: open YouTube link
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+          child: Row(
+            children: const [
+              Icon(Icons.smart_display, color: Colors.red, size: 36),
+              SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'পণ্য বিক্রয়ের নিয়মাবলীর টিউটোরিয়াল দেখুন',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
+                ),
+              ),
+            ],
           ),
         ),
-        Expanded(
-          flex: 6,
-          child: Text(
-            value,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-              color: valueColor ?? Colors.black87,
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
