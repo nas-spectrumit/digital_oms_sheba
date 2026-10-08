@@ -3,8 +3,7 @@ import 'package:digital_oms_sheba/core/constant/custom_background.dart';
 import 'package:digital_oms_sheba/core/constant/custom_textbox.dart';
 import 'package:digital_oms_sheba/core/constant/height_width.dart';
 import 'package:digital_oms_sheba/core/constant/navigation_custom.dart';
-import 'package:digital_oms_sheba/core/services/device_info_controller.dart';
-import 'package:digital_oms_sheba/features/user/user_dashboard_page.dart';
+import 'package:digital_oms_sheba/features/user/view/user_dashboard_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -35,24 +34,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new_rounded, color: myGreen, size: 20),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'লগইন',
-          style: TextStyle(
-            color: Colors.grey.shade900,
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        centerTitle: true,
-      ),
       body: CustomBackground(
         child: SafeArea(
           child: SingleChildScrollView(
@@ -61,48 +42,21 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                height10(),
+                height30(),
 
                 // Logo with subtle badge
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: myGreen.withValues(alpha: 0.12),
-                        blurRadius: 16,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Image.asset(
-                    'assets/images/main_logo.png',
-                    height: 68,
-                    width: 68,
-                    fit: BoxFit.contain,
-                  ),
-                ),
+                ClipOval(child: Image.asset('assets/images/main_logo.png', height: 68, width: 68, fit: BoxFit.contain)),
                 height14(),
 
                 Text(
                   'ওএমএস সেবা পোর্টালে স্বাগতম',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    color: myGreen,
-                  ),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: myGreen),
                 ),
                 height5(),
                 Text(
                   'আপনার ইউজারনেম এবং পাসওয়ার্ড দিয়ে প্রবেশ করুন',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.grey.shade600),
                 ),
                 height25(),
 
@@ -127,8 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                       // Username Input
                       CustomTextField(
                         controller: _usernameController,
-                        labelText: 'ইউজারনেম / মোবাইল নম্বর',
-                        hintText: 'উদা: 017XXXXXXXX বা ইউজারনেম',
+                        labelText: 'ইউজার আইডি লিখুন',
                         prefixIcon: Icons.person_outline_rounded,
                         prefixIconColor: myGreen,
                         keyboardType: TextInputType.text,
@@ -138,8 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                       // Password Input
                       CustomTextField(
                         controller: _passwordController,
-                        labelText: 'পাসওয়ার্ড',
-                        hintText: 'আপনার পাসওয়ার্ড লিখুন',
+                        labelText: 'আপনার পাসওয়ার্ড লিখুন',
                         prefixIcon: Icons.lock_outline_rounded,
                         prefixIconColor: myGreen,
                         obscureText: _obscurePassword,
@@ -205,11 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             child: Text(
                               'পাসওয়ার্ড ভুলে গেছেন?',
-                              style: TextStyle(
-                                fontSize: 12.5,
-                                fontWeight: FontWeight.w700,
-                                color: myGreen,
-                              ),
+                              style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: myGreen),
                             ),
                           ),
                         ],
@@ -234,11 +182,7 @@ class _LoginPageState extends State<LoginPage> {
                             width8(),
                             const Text(
                               'লগইন করুন',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w800,
-                                letterSpacing: 0.3,
-                              ),
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 0.3),
                             ),
                           ],
                         ),
@@ -247,62 +191,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 height20(),
-
-                // Govt Helpline Notice
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: myGreen.withValues(alpha: 0.06),
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: myGreen.withValues(alpha: 0.18)),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(Icons.info_outline, color: myGreen, size: 20),
-                      width10(),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'সাহায্য ও তথ্য সেবা',
-                              style: TextStyle(
-                                fontSize: 12.5,
-                                fontWeight: FontWeight.w700,
-                                color: myGreen,
-                              ),
-                            ),
-                            height2(),
-                            Text(
-                              'লগইন সংক্রান্ত কোনো সমস্যায় আপনার এলাকার উপজেলা খাদ্য কর্মকর্তা বা ডিলারের সাথে যোগাযোগ করুন অথবা হেল্পলাইন ১৬২৫১-এ কল দিন।',
-                              style: TextStyle(
-                                fontSize: 11.5,
-                                color: Colors.grey.shade700,
-                                height: 1.35,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                height25(),
-
-                // Version and copyright
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'খাদ্য অধিদপ্তর • সংস্করণ ',
-                      style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
-                    ),
-                    AppVersionDetails(fontColor: Colors.grey.shade600, fontSize: 10),
-                  ],
-                ),
-                height10(),
               ],
             ),
           ),

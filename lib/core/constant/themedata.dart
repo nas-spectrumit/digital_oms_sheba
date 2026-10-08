@@ -44,7 +44,7 @@ final ThemeData lightTheme = ThemeData(
   ),
   appBarTheme: AppBarTheme(
     foregroundColor: Colors.black,
-    backgroundColor: Colors.transparent,
+    backgroundColor: Color.fromARGB(255, 216, 237, 227).withValues(alpha: .5),
     titleTextStyle: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
     elevation: 0,
     centerTitle: false,

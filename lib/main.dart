@@ -2,7 +2,7 @@ import 'package:digital_oms_sheba/core/constant/loadin_overlay.dart';
 import 'package:digital_oms_sheba/core/constant/themedata.dart';
 import 'package:digital_oms_sheba/core/providers/app_providers.dart';
 import 'package:digital_oms_sheba/core/services/svg_preload.dart';
-import 'package:digital_oms_sheba/features/auth/onboarding/splash_page.dart';
+import 'package:digital_oms_sheba/features/auth/onboarding/view/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';

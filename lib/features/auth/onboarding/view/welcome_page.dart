@@ -4,7 +4,7 @@ import 'package:digital_oms_sheba/core/constant/height_width.dart';
 import 'package:digital_oms_sheba/core/constant/navigation_custom.dart';
 import 'package:digital_oms_sheba/core/services/device_info_controller.dart';
 import 'package:digital_oms_sheba/core/services/svg_preload.dart';
-import 'package:digital_oms_sheba/features/auth/login/login_page.dart';
+import 'package:digital_oms_sheba/features/auth/login/view/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -24,7 +24,8 @@ class WelcomePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                minHeight: size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom - 32,
+                minHeight:
+                    size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom - 32,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,63 +34,17 @@ class WelcomePage extends StatelessWidget {
                   // ── Top Header Section ─────────────────────────────
                   Column(
                     children: [
-                      height10(),
-                      // Bangladesh Govt Pill Badge
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-                        decoration: BoxDecoration(
-                          color: myGreen.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: myGreen.withValues(alpha: 0.3)),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.verified, size: 15, color: Color(0xff137547)),
-                            width5(),
-                            Text(
-                              'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: myGreen,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                       height16(),
 
                       // Ministry & App Logo
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: myGreen.withValues(alpha: 0.14),
-                              blurRadius: 20,
-                              offset: const Offset(0, 6),
-                            ),
-                          ],
-                        ),
-                        child: Image.asset(
-                          'assets/images/main_logo.png',
-                          height: 76,
-                          width: 76,
-                          fit: BoxFit.contain,
-                        ),
+                      ClipOval(
+                        child: Image.asset('assets/images/main_logo.png', height: 76, width: 76, fit: BoxFit.contain),
                       ),
                       height14(),
 
                       Text(
                         'খাদ্য অধিদপ্তর',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.grey.shade800,
-                        ),
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.grey.shade800),
                       ),
                       height2(),
                       Text(
@@ -105,11 +60,7 @@ class WelcomePage extends StatelessWidget {
                       Text(
                         'সহজ ও স্বচ্ছ উপায়ে ন্যায্যমূল্যের খাদ্যপণ্য প্রাপ্তির ডিজিটাল প্ল্যাটফর্ম',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey.shade600,
-                        ),
+                        style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w500, color: Colors.grey.shade600),
                       ),
                     ],
                   ),
@@ -121,11 +72,7 @@ class WelcomePage extends StatelessWidget {
                       children: [
                         Text(
                           'আপনার সেবাটি বেছে নিন',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.grey.shade800,
-                          ),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.grey.shade800),
                         ),
                         height16(),
 
@@ -213,18 +160,11 @@ class WelcomePage extends StatelessWidget {
                                     children: [
                                       Text(
                                         '১৬২৫১',
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w800,
-                                          color: myGreen,
-                                        ),
+                                        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: myGreen),
                                       ),
                                       Text(
                                         '  |  জাতীয় কল সেন্টার: ৩৩৩',
-                                        style: TextStyle(
-                                          fontSize: 11,
-                                          color: Colors.grey.shade600,
-                                        ),
+                                        style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                                       ),
                                     ],
                                   ),
@@ -243,10 +183,7 @@ class WelcomePage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'সংস্করণ ',
-                            style: TextStyle(fontSize: 9.5, color: Colors.grey.shade500),
-                          ),
+                          Text('সংস্করণ ', style: TextStyle(fontSize: 9.5, color: Colors.grey.shade500)),
                           AppVersionDetails(fontColor: Colors.grey.shade600, fontSize: 9.5),
                         ],
                       ),
@@ -309,10 +246,7 @@ class WelcomePage extends StatelessWidget {
                   ),
                   child: SvgPicture.asset(
                     svgPath,
-                    colorFilter: ColorFilter.mode(
-                      isPrimary ? primary : Colors.grey.shade800,
-                      BlendMode.srcIn,
-                    ),
+                    colorFilter: ColorFilter.mode(isPrimary ? primary : Colors.grey.shade800, BlendMode.srcIn),
                   ),
                 ),
                 width14(),
@@ -353,11 +287,7 @@ class WelcomePage extends StatelessWidget {
                       height5(),
                       Text(
                         subtitle,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey.shade600,
-                        ),
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.grey.shade600),
                       ),
                     ],
                   ),
@@ -367,10 +297,7 @@ class WelcomePage extends StatelessWidget {
                 Container(
                   width: 34,
                   height: 34,
-                  decoration: BoxDecoration(
-                    color: isPrimary ? primary : Colors.grey.shade100,
-                    shape: BoxShape.circle,
-                  ),
+                  decoration: BoxDecoration(color: isPrimary ? primary : Colors.grey.shade100, shape: BoxShape.circle),
                   child: Icon(
                     Icons.arrow_forward_ios_rounded,
                     size: 16,

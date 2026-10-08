@@ -3,7 +3,7 @@ import 'package:digital_oms_sheba/core/constant/height_width.dart';
 import 'package:digital_oms_sheba/core/constant/navigation_custom.dart';
 import 'package:digital_oms_sheba/core/services/device_info_controller.dart';
 import 'package:digital_oms_sheba/core/services/svg_preload.dart';
-import 'package:digital_oms_sheba/features/auth/onboarding/welcome_page.dart';
+import 'package:digital_oms_sheba/features/auth/onboarding/view/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -36,17 +36,11 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
             Icon(Icons.info_outline, color: myGreen),
             width8(),
             Expanded(
-              child: Text(
-                title,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-              ),
+              child: Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
             ),
           ],
         ),
-        content: Text(
-          message,
-          style: TextStyle(fontSize: 13, color: Colors.grey.shade800, height: 1.4),
-        ),
+        content: Text(message, style: TextStyle(fontSize: 13, color: Colors.grey.shade800, height: 1.4)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -80,7 +74,10 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
               minimumSize: const Size(80, 36),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             ),
-            child: const Text('লগআউট', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+            child: const Text(
+              'লগআউট',
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            ),
           ),
         ],
       ),
@@ -97,11 +94,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
         automaticallyImplyLeading: false,
         title: Row(
           children: [
-            Image.asset(
-              'assets/images/main_logo.png',
-              height: 32,
-              width: 32,
-            ),
+            Image.asset('assets/images/main_logo.png', height: 32, width: 32),
             width10(),
             Expanded(
               child: Column(
@@ -109,11 +102,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                 children: [
                   const Text(
                     'ডিজিটাল ওএমএস সেবা',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w800,
-                    ),
+                    style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800),
                   ),
                   Text(
                     'খাদ্য অধিদপ্তর, বাংলাদেশ',
@@ -163,11 +152,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                     children: [
                       Text(
                         'চলতি মাসের বরাদ্দ ও কোটা (অক্টোবর)',
-                        style: TextStyle(
-                          fontSize: 14.5,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.grey.shade900,
-                        ),
+                        style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.w800, color: Colors.grey.shade900),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -177,11 +162,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                         ),
                         child: Text(
                           'নির্ধারিত মূল্য',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            color: myGreen,
-                          ),
+                          style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: myGreen),
                         ),
                       ),
                     ],
@@ -236,11 +217,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                 children: [
                   Text(
                     'নাগরিক সেবাসমূহ',
-                    style: TextStyle(
-                      fontSize: 14.5,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.grey.shade900,
-                    ),
+                    style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.w800, color: Colors.grey.shade900),
                   ),
                   height12(),
                   GridView.count(
@@ -322,19 +299,11 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                     children: [
                       Text(
                         'সাম্প্রতিক উত্তোলন বিবরণী',
-                        style: TextStyle(
-                          fontSize: 14.5,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.grey.shade900,
-                        ),
+                        style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.w800, color: Colors.grey.shade900),
                       ),
                       Text(
                         'সকল দেখুন',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: myGreen,
-                        ),
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: myGreen),
                       ),
                     ],
                   ),
@@ -370,18 +339,12 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                             children: [
                               const Text(
                                 'চাল - ২ কেজি (৬০ ৳)',
-                                style: TextStyle(
-                                  fontSize: 13.5,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                                style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.w700),
                               ),
                               height2(),
                               Text(
                                 '০২ অক্টোবর ২০২৬ • মিরপুর-১০ বিতরণ কেন্দ্র',
-                                style: TextStyle(
-                                  fontSize: 11.5,
-                                  color: Colors.grey.shade600,
-                                ),
+                                style: TextStyle(fontSize: 11.5, color: Colors.grey.shade600),
                               ),
                             ],
                           ),
@@ -395,11 +358,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                           ),
                           child: Text(
                             'গৃহীত',
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.green.shade800,
-                            ),
+                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Colors.green.shade800),
                           ),
                         ),
                       ],
@@ -427,11 +386,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                         width8(),
                         Text(
                           'জরুরি ওএমএস তথ্য ও সহায়তা কেন্দ্র',
-                          style: TextStyle(
-                            fontSize: 12.5,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.grey.shade800,
-                          ),
+                          style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: Colors.grey.shade800),
                         ),
                       ],
                     ),
@@ -488,22 +443,10 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
         backgroundColor: myGreen,
         type: BottomNavigationBarType.fixed,
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'হোম',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code_2_rounded),
-            label: 'ওএমএস কার্ড',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.storefront_rounded),
-            label: 'বিক্রয় কেন্দ্র',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_rounded),
-            label: 'প্রোফাইল',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'হোম'),
+          BottomNavigationBarItem(icon: Icon(Icons.qr_code_2_rounded), label: 'ওএমএস কার্ড'),
+          BottomNavigationBarItem(icon: Icon(Icons.storefront_rounded), label: 'বিক্রয় কেন্দ্র'),
+          BottomNavigationBarItem(icon: Icon(Icons.person_rounded), label: 'প্রোফাইল'),
         ],
       ),
     );
@@ -516,10 +459,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
       width: double.infinity,
       decoration: BoxDecoration(
         color: myGreen,
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(24),
-          bottomRight: Radius.circular(24),
-        ),
+        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(24), bottomRight: Radius.circular(24)),
       ),
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 20),
       child: Column(
@@ -532,11 +472,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
               color: Colors.white,
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.08),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
+                BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 10, offset: const Offset(0, 4)),
               ],
             ),
             child: Row(
@@ -559,10 +495,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                           const Flexible(
                             child: Text(
                               'মোঃ আব্দুল করিম',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w800,
-                              ),
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
@@ -576,11 +509,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                             ),
                             child: const Text(
                               'সক্রিয়',
-                              style: TextStyle(
-                                fontSize: 9.5,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.green,
-                              ),
+                              style: TextStyle(fontSize: 9.5, fontWeight: FontWeight.w700, color: Colors.green),
                             ),
                           ),
                         ],
@@ -588,20 +517,12 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                       height2(),
                       Text(
                         'কার্ড নং: OMS-DH-2026-89421',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey.shade700,
-                        ),
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.grey.shade700),
                       ),
                       height2(),
                       Text(
                         'এনআইডি: ১৯৮৯ ২৬১ ২৩৪ ৫৬৭৮',
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey.shade600,
-                        ),
+                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.grey.shade600),
                       ),
                     ],
                   ),
@@ -631,12 +552,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
           Expanded(
             child: Text(
               'জরুরি নোটিশ: শুক্রবার ব্যতীত প্রতিদিন সকাল ৯টা থেকে বিকাল ৫টা পর্যন্ত ওএমএস পয়েন্টে খাদ্য সহায়তা বিতরণ করা হবে। পণ্য ক্রয়ে আপনার ডিজিটাল কার্ড প্রদর্শন করুন।',
-              style: TextStyle(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w600,
-                color: Colors.brown.shade800,
-                height: 1.35,
-              ),
+              style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Colors.brown.shade800, height: 1.35),
             ),
           ),
         ],
@@ -660,13 +576,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: color.withValues(alpha: 0.2)),
-        boxShadow: [
-          BoxShadow(
-            color: color.withValues(alpha: 0.05),
-            blurRadius: 8,
-            offset: const Offset(0, 3),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: color.withValues(alpha: 0.05), blurRadius: 8, offset: const Offset(0, 3))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -675,21 +585,14 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
             children: [
               Container(
                 padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: color.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
+                decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
                 child: Icon(icon, color: color, size: 18),
               ),
               width8(),
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w800,
-                    color: color,
-                  ),
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: color),
                 ),
               ),
             ],
@@ -702,17 +605,10 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'দর:',
-                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-              ),
+              Text('দর:', style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
               Text(
                 rate,
-                style: TextStyle(
-                  fontSize: 11.5,
-                  fontWeight: FontWeight.w700,
-                  color: color,
-                ),
+                style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: color),
               ),
             ],
           ),
@@ -737,10 +633,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            label,
-            style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-          ),
+          Text(label, style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
           Text(
             value,
             style: TextStyle(
@@ -767,27 +660,14 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: myGreen.withValues(alpha: 0.3),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
+          boxShadow: [BoxShadow(color: myGreen.withValues(alpha: 0.3), blurRadius: 10, offset: const Offset(0, 4))],
         ),
         child: Row(
           children: [
             Container(
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: SvgPicture.asset(
-                SvgMyAsset.qr,
-                height: 38,
-                width: 38,
-              ),
+              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
+              child: SvgPicture.asset(SvgMyAsset.qr, height: 38, width: 38),
             ),
             width14(),
             Expanded(
@@ -796,11 +676,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                 children: [
                   const Text(
                     'ডিজিটাল ওএমএস কার্ড ও কিউআর',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white,
-                    ),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: Colors.white),
                   ),
                   height2(),
                   Text(
@@ -816,19 +692,12 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
+              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
               child: Row(
                 children: [
                   Text(
                     'দেখুন',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      color: myGreen,
-                    ),
+                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: myGreen),
                   ),
                   const Icon(Icons.chevron_right, size: 16, color: Color(0xff137547)),
                 ],
@@ -858,11 +727,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
             borderRadius: BorderRadius.circular(14),
             border: Border.all(color: Colors.grey.shade200),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.02),
-                blurRadius: 6,
-                offset: const Offset(0, 2),
-              ),
+              BoxShadow(color: Colors.black.withValues(alpha: 0.02), blurRadius: 6, offset: const Offset(0, 2)),
             ],
           ),
           child: Column(
@@ -872,23 +737,14 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                 height: 40,
                 width: 40,
                 padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: myGreenAccent.withValues(alpha: 0.4),
-                  shape: BoxShape.circle,
-                ),
-                child: SvgPicture.asset(
-                  svgPath,
-                  colorFilter: ColorFilter.mode(myGreen, BlendMode.srcIn),
-                ),
+                decoration: BoxDecoration(color: myGreenAccent.withValues(alpha: 0.4), shape: BoxShape.circle),
+                child: SvgPicture.asset(svgPath, colorFilter: ColorFilter.mode(myGreen, BlendMode.srcIn)),
               ),
               height8(),
               Text(
                 title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 11.5,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -896,10 +752,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
               Text(
                 subtitle,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 9.5,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 9.5, color: Colors.grey.shade600),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -925,11 +778,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
           width5(),
           Text(
             '$label: $number',
-            style: TextStyle(
-              fontSize: 10.5,
-              fontWeight: FontWeight.w700,
-              color: myGreen,
-            ),
+            style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.w700, color: myGreen),
           ),
         ],
       ),
@@ -959,10 +808,7 @@ class _DigitalCardModal extends StatelessWidget {
           Container(
             width: 40,
             height: 4,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(2),
-            ),
+            decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(2)),
           ),
           height16(),
 
@@ -972,16 +818,9 @@ class _DigitalCardModal extends StatelessWidget {
             children: [
               Text(
                 'ডিজিটাল ওএমএস কার্ড',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w800,
-                  color: myGreen,
-                ),
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: myGreen),
               ),
-              IconButton(
-                icon: const Icon(Icons.close_rounded),
-                onPressed: () => Navigator.pop(context),
-              ),
+              IconButton(icon: const Icon(Icons.close_rounded), onPressed: () => Navigator.pop(context)),
             ],
           ),
           height10(),
@@ -1019,20 +858,9 @@ class _DigitalCardModal extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                              ),
-                            ),
                             Text(
                               'খাদ্য অধিদপ্তর • ওএমএস কার্ড',
-                              style: TextStyle(
-                                fontSize: 9,
-                                color: Colors.white.withValues(alpha: 0.8),
-                              ),
+                              style: TextStyle(fontSize: 9, color: Colors.white.withValues(alpha: 0.8)),
                             ),
                           ],
                         ),
@@ -1046,11 +874,7 @@ class _DigitalCardModal extends StatelessWidget {
                       ),
                       child: const Text(
                         'সুবিধাভোগী',
-                        style: TextStyle(
-                          fontSize: 9.5,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.black,
-                        ),
+                        style: TextStyle(fontSize: 9.5, fontWeight: FontWeight.w800, color: Colors.black),
                       ),
                     ),
                   ],
@@ -1063,15 +887,8 @@ class _DigitalCardModal extends StatelessWidget {
                     // QR Code Box
                     Container(
                       padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: SvgPicture.asset(
-                        SvgMyAsset.qr,
-                        height: 70,
-                        width: 70,
-                      ),
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
+                      child: SvgPicture.asset(SvgMyAsset.qr, height: 70, width: 70),
                     ),
                     width14(),
                     Expanded(
@@ -1080,11 +897,7 @@ class _DigitalCardModal extends StatelessWidget {
                         children: [
                           const Text(
                             'মোঃ আব্দুল করিম',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white,
-                            ),
+                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Colors.white),
                           ),
                           height2(),
                           Text(
@@ -1098,18 +911,12 @@ class _DigitalCardModal extends StatelessWidget {
                           height2(),
                           Text(
                             'এনআইডি: ১৯৮৯ ২৬১ ২৩৪ ৫৬৭৮',
-                            style: TextStyle(
-                              fontSize: 10.5,
-                              color: Colors.white.withValues(alpha: 0.8),
-                            ),
+                            style: TextStyle(fontSize: 10.5, color: Colors.white.withValues(alpha: 0.8)),
                           ),
                           height2(),
                           Text(
                             'কেন্দ্র: মিরপুর-১০, ঢাকা',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white.withValues(alpha: 0.8),
-                            ),
+                            style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.8)),
                           ),
                         ],
                       ),
@@ -1122,15 +929,8 @@ class _DigitalCardModal extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: SvgPicture.asset(
-                    SvgMyAsset.barcode,
-                    height: 24,
-                    fit: BoxFit.contain,
-                  ),
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6)),
+                  child: SvgPicture.asset(SvgMyAsset.barcode, height: 24, fit: BoxFit.contain),
                 ),
               ],
             ),
@@ -1140,11 +940,7 @@ class _DigitalCardModal extends StatelessWidget {
           Text(
             'খাদ্য সহায়তা গ্রহণের সময় ডিলার পয়েন্টে এই কিউআর কোডটি স্ক্যান করান।',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11.5,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: Colors.grey.shade600),
           ),
           height16(),
         ],

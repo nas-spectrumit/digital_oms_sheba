@@ -1,10 +1,11 @@
 import 'dart:async';
+
 import 'package:digital_oms_sheba/core/constant/colors_custom.dart';
 import 'package:digital_oms_sheba/core/constant/custom_background.dart';
 import 'package:digital_oms_sheba/core/constant/height_width.dart';
 import 'package:digital_oms_sheba/core/constant/navigation_custom.dart';
 import 'package:digital_oms_sheba/core/services/device_info_controller.dart';
-import 'package:digital_oms_sheba/features/auth/onboarding/welcome_page.dart';
+import 'package:digital_oms_sheba/features/auth/onboarding/view/welcome_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -23,22 +24,14 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    _animController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1200),
-    );
+    _animController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1200));
 
-    _fadeAnim = CurvedAnimation(
-      parent: _animController,
-      curve: Curves.easeIn,
-    );
+    _fadeAnim = CurvedAnimation(parent: _animController, curve: Curves.easeIn);
 
-    _scaleAnim = Tween<double>(begin: 0.85, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _animController,
-        curve: Curves.easeOutBack,
-      ),
-    );
+    _scaleAnim = Tween<double>(
+      begin: 0.85,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _animController, curve: Curves.easeOutBack));
 
     _animController.forward();
 
@@ -80,18 +73,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.verified, size: 16, color: Color(0xff137547)),
-                        width5(),
-                        Text(
-                          'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: myGreen,
-                          ),
-                        ),
-                      ],
+                      children: [const Icon(Icons.verified, size: 16, color: Color(0xff137547))],
                     ),
                   ),
                 ),
@@ -164,11 +146,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                           height12(),
                           Text(
                             'স্বচ্ছতা ও সমতাভিত্তিক খাদ্য সহায়তা বিতরণ কার্যক্রম',
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey.shade600,
-                            ),
+                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.grey.shade600),
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -194,20 +172,13 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                       height16(),
                       Text(
                         'অ্যাপ লোড হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey.shade600,
-                        ),
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.grey.shade600),
                       ),
                       height8(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'সংস্করণ ',
-                            style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
-                          ),
+                          Text('সংস্করণ ', style: TextStyle(fontSize: 10, color: Colors.grey.shade500)),
                           AppVersionDetails(fontColor: Colors.grey.shade600, fontSize: 10),
                         ],
                       ),
