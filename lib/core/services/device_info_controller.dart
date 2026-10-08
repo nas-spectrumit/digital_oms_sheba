@@ -1,9 +1,12 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:network_info_plus/network_info_plus.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:unique_identifier/unique_identifier.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class DeviceInfoController extends ChangeNotifier {
   String deviceFullInfo = '';
@@ -13,9 +16,39 @@ class DeviceInfoController extends ChangeNotifier {
   String longitude = '';
   String myIpAddress = '';
   String uniqueSerial = '';
-  String totalRam = '';
   String currentVersionCode = '';
   String currentBuildNo = '';
+
+  Future<void> initAllInfo() async {
+    await fetchLocation();
+    await getIpAddress();
+    await getDeviceUniqueSerial();
+    await getDeviceDetails();
+    notifyListeners();
+  }
+
+  Future<void> getDeviceDetails() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    currentVersionCode = packageInfo.version;
+    currentBuildNo = packageInfo.buildNumber;
+    final deviceInfo = DeviceInfoPlugin();
+    try {
+      if (Platform.isAndroid) {
+        final info = await deviceInfo.androidInfo;
+        deviceName = info.device;
+        deviceFullInfo =
+            'DV: ${info.device} (${info.model}) , AVr: ${info.version.release}, USr: $uniqueSerial, Latitude: $latitude, Longitude: $longitude, IP: $myIpAddress';
+      } else if (Platform.isIOS) {
+        final info = await deviceInfo.iosInfo;
+        deviceName = info.name;
+        deviceFullInfo =
+            'DV: ${info.name} (${info.utsname.machine}) , AVr: ${info.systemVersion}, USr: $uniqueSerial, Latitude: $latitude, Longitude: $longitude, IP: $myIpAddress';
+      }
+    } catch (e) {
+      debugPrint('Error fetching device info: $e');
+    }
+    notifyListeners();
+  }
 
   Future<void> fetchLocation() async {
     try {
@@ -32,7 +65,12 @@ class DeviceInfoController extends ChangeNotifier {
   }
 
   Future<void> getIpAddress() async {
-    myIpAddress = await NetworkInfo().getWifiIP() ?? 'Unknown';
+    try {
+      myIpAddress = await NetworkInfo().getWifiIP() ?? 'Unknown';
+    } catch (e) {
+      myIpAddress = 'Unknown';
+      debugPrint('Error fetching IP address: $e');
+    }
     notifyListeners();
   }
 
@@ -43,15 +81,6 @@ class DeviceInfoController extends ChangeNotifier {
     } catch (e) {
       uniqueSerial = '';
       debugPrint('Error fetching unique identifier: $e');
-    }
-  }
-
-  Future<void> launchMap(String latitude, String longitude) async {
-    final url = Uri.parse("https://www.google.com/maps/search/?api=1&query=$latitude,$longitude");
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw "Could not launch map";
     }
   }
 }

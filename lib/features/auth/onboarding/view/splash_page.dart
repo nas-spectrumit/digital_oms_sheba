@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:digital_oms_sheba/core/constant/colors_custom.dart';
 import 'package:digital_oms_sheba/core/constant/custom_background.dart';
 import 'package:digital_oms_sheba/core/constant/height_width.dart';
-import 'package:digital_oms_sheba/core/constant/navigation_custom.dart';
+import 'package:digital_oms_sheba/core/services/app_force_update/controller/app_update_controller.dart';
 import 'package:digital_oms_sheba/core/services/device_info_controller.dart';
-import 'package:digital_oms_sheba/features/auth/onboarding/view/welcome_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -36,9 +36,9 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
     _animController.forward();
 
     // Navigate to WelcomePage after 2.2 seconds
-    _navTimer = Timer(const Duration(milliseconds: 2200), () {
+    _navTimer = Timer(const Duration(milliseconds: 2200), () async {
       if (mounted) {
-        pushReplacementPage(context, const WelcomePage());
+        await Provider.of<AppUpdateController>(context, listen: false).deviceAllInfo(context);
       }
     });
   }

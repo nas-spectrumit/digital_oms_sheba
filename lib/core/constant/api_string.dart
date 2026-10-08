@@ -1,4 +1,4 @@
 class AppString {
-  static String appUpdateUrl = 'https://play.google.com/store/apps/details?id=com.spectrum.upokari';
-  static String gitUpdateUrl = 'https://zcdasnas.github.io/upri/ver.json';
+  static String googlePlayUrl = 'https://play.google.com/store/apps/details?id=com.spectrum.oms';
+  static String gitUpdateUrl = 'https://zcdasnas.github.io/oms/ver.json';
 }
