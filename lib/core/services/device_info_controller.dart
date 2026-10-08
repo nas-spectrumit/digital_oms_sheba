@@ -19,9 +19,9 @@ class DeviceInfoController extends ChangeNotifier {
   String currentBuildNo = '';
 
   Future<void> initAllInfo() async {
-    await fetchLocation();
     await getDeviceUniqueSerial();
     await getDeviceDetails();
+    await fetchLocation();
     notifyListeners();
   }
 
@@ -35,13 +35,14 @@ class DeviceInfoController extends ChangeNotifier {
         final info = await deviceInfo.androidInfo;
         deviceName = info.device;
         deviceFullInfo =
-            'DV: ${info.device} (${info.model}) , AVr: ${info.version.release}, USr: $uniqueSerial, Latitude: $latitude, Longitude: $longitude';
+            'Device: ${info.device} (${info.model}) , Android Version: ${info.version.release}, Serial: $uniqueSerial, Latitude: $latitude, Longitude: $longitude';
       } else if (Platform.isIOS) {
         final info = await deviceInfo.iosInfo;
         deviceName = info.name;
         deviceFullInfo =
-            'DV: ${info.name} (${info.utsname.machine}) , AVr: ${info.systemVersion}, USr: $uniqueSerial, Latitude: $latitude, Longitude: $longitude';
+            'Device: ${info.name} (${info.utsname.machine}) , IOS Version: ${info.systemVersion}, Serial: $uniqueSerial, Latitude: $latitude, Longitude: $longitude';
       }
+      log('Device Info: $deviceFullInfo');
     } catch (e) {
       log('Error fetching device info: $e');
     }
@@ -71,23 +72,22 @@ class DeviceInfoController extends ChangeNotifier {
       }
 
       final position = await Geolocator.getCurrentPosition(
-        locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
+        locationSettings: const LocationSettings(accuracy: LocationAccuracy.high, timeLimit: Duration(seconds: 15)),
       );
       latitude = position.latitude.toString();
       longitude = position.longitude.toString();
       locationMessage = 'Latitude: $latitude, Longitude: $longitude';
+      log(locationMessage);
       notifyListeners();
     } catch (e) {
-      log('DeviceInfoController: fetchLocation error: $e');
+      log('Location: fetchLocation error: $e');
     }
   }
-
-
 
   Future<void> getDeviceUniqueSerial() async {
     try {
       uniqueSerial = await UniqueIdentifier.serial ?? '';
-      log('Unique Identifier: $uniqueSerial');
+      log('UniqueSerial: $uniqueSerial');
     } catch (e) {
       uniqueSerial = '';
       log('Error fetching unique identifier: $e');

@@ -71,8 +71,8 @@ class HelperClass {
   static Future<bool> isInternetAvailable() async {
     try {
       final client = HttpClient();
-      final request = await client.getUrl(Uri.parse('https://google.com')).timeout(const Duration(seconds: 5));
-      final response = await request.close().timeout(const Duration(seconds: 5));
+      final request = await client.getUrl(Uri.parse('https://google.com')).timeout(const Duration(seconds: 15));
+      final response = await request.close().timeout(const Duration(seconds: 15));
       client.close();
       debugPrint('Internet check success: ${response.statusCode}');
       return response.statusCode == 200 || response.statusCode == 301 || response.statusCode == 302;
