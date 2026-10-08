@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:camera/camera.dart';
 import 'package:digital_oms_sheba/core/card_capture_widget/card_capture_page.dart';
 import 'package:digital_oms_sheba/core/constant/colors_custom.dart';
-import 'package:digital_oms_sheba/core/constant/height_width.dart';
 import 'package:digital_oms_sheba/core/constant/navigation_custom.dart';
 import 'package:flutter/material.dart';
 
@@ -17,23 +16,16 @@ class UserDashboardPage extends StatefulWidget {
 class _UserDashboardPageState extends State<UserDashboardPage> {
   int _currentBottomNavIndex = 0;
 
-  // TODO: replace with data from your API / model
-  static const _phase = 'জুলাই - ২০২৫ (স্মার্ট কার্ড-০৭)';
-  static const _package = 'A: ভোজ্য তেল (২ লিঃ)+ডাল (২ কেঃ)+চিনি (১ কে)';
-
-  // Shared tones taken from the screenshot
-  static const _panelColor = Color(0xFFE3F1E3); // light green panel
-  static const _headerGrey = Color(0xFFDDE5DD); // card header strip
+  static const _phase = 'সেপ্টেম্বর - ২০২৬';
+  static const _package = 'চাল, ডাল, চিনি';
 
   @override
   Widget build(BuildContext context) {
-    final minPanelHeight = MediaQuery.of(context).size.height * 0.55;
-
     return Scaffold(
-      backgroundColor: myGreenAccent,
+      backgroundColor: Colors.green.shade100,
       appBar: const _DashboardAppBar(shopName: 'নাফিস এন্টারপ্রাইজ', userId: '01566666666'),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 16),
         child: Column(
           children: [
             // ── Top info cards ──
@@ -43,25 +35,29 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                 Expanded(
                   child: _InfoCard(title: 'ধাপ', value: _phase),
                 ),
-                SizedBox(width: 12),
+                SizedBox(width: 8),
                 Expanded(
                   child: _InfoCard(title: 'প্যাকেজ', value: _package),
                 ),
               ],
             ),
-            height16(),
+            const SizedBox(height: 12),
 
             // ── Main panel ──
             Container(
               width: double.infinity,
-              constraints: BoxConstraints(minHeight: minPanelHeight),
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: _panelColor,
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.grey.shade300),
+                border: Border.all(color: myGreen.withValues(alpha: 0.4)),
                 boxShadow: [
-                  BoxShadow(color: Colors.black.withValues(alpha: 0.25), blurRadius: 6, offset: const Offset(0, 3)),
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.12),
+                    blurRadius: 16,
+                    spreadRadius: 2,
+                    offset: const Offset(0, 6),
+                  ),
                 ],
               ),
               child: Column(
@@ -71,23 +67,23 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                       Expanded(
                         child: _ActionButton(
                           title: 'QR কোড স্ক্যান করুন',
-                          icon: Icons.qr_code_2,
+                          icon: Icons.qr_code_2_rounded,
                           iconColor: Colors.black87,
                           bgColor: myRedAccent,
-                          statusIcon: Icons.close,
-                          statusColor: Colors.red,
+                          statusIcon: Icons.close_rounded,
+                          statusColor: Colors.red.shade600,
                           onTap: () {},
                         ),
                       ),
-                      width12(),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: _ActionButton(
                           title: 'কার্ডের ছবি তুলুন',
-                          icon: Icons.camera_alt,
+                          icon: Icons.camera_alt_rounded,
                           iconColor: myGreen,
                           bgColor: Colors.white,
-                          statusIcon: Icons.check_circle,
-                          statusColor: Colors.green,
+                          statusIcon: Icons.check_circle_rounded,
+                          statusColor: Colors.green.shade600,
                           onTap: () async {
                             final cameras = await availableCameras();
                             if (context.mounted) {
@@ -108,27 +104,13 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10),
-                  // Single line, clipped like the screenshot.
-                  // Wrap it in a Marquee package widget if you want it to scroll.
-                  const SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      '!! বরাদ্দ না পেয়ে থাকলে বরাদ্দ প্রদানকারী কর্তৃপক্ষের সাথে যোগাযোগ করুন',
-                      maxLines: 1,
-                      softWrap: false,
-                      overflow: TextOverflow.clip,
-                      style: TextStyle(color: Colors.red, fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 12),
                   const _AllocationCard(
-                    headerColor: _headerGrey,
                     rows: [
                       _Row('ধাপ', _phase),
                       _Row('প্যাকেজ', _package),
-                      _Row('ধাপ শুরুর তারিখ', '07-07-2025 (12:20 PM)'),
-                      _Row('বরাদ্দের শেষ তারিখ', '25-07-2025 (12:20 PM)', isWarning: true),
+                      _Row('ধাপ শুরুর তারিখ', '07-10-2026 (12:20 PM)'),
+                      _Row('বরাদ্দের শেষ তারিখ', '31-10-2026 (11:59 PM)', isWarning: true),
                       _Row('মোট বরাদ্দ', '2'),
                       _Row('মোট বিক্রয়', '0'),
                       _Row('অবশিষ্ট', '2'),
@@ -137,7 +119,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 28),
+            const SizedBox(height: 16),
 
             // ── Tutorial button ──
             const _TutorialButton(),
@@ -149,20 +131,29 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
   }
 
   Widget _buildBottomNav() {
-    return BottomNavigationBar(
-      currentIndex: _currentBottomNavIndex,
-      onTap: (i) => setState(() => _currentBottomNavIndex = i),
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: myGreen,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.white,
-      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-      unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'হোম'),
-        BottomNavigationBarItem(icon: Icon(Icons.calendar_view_month), label: 'বিক্রয় রিপোর্ট'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'প্রোফাইল'),
-      ],
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 12, offset: const Offset(0, -3)),
+        ],
+      ),
+      child: BottomNavigationBar(
+        currentIndex: _currentBottomNavIndex,
+        onTap: (i) => setState(() => _currentBottomNavIndex = i),
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        selectedItemColor: myGreen,
+        unselectedItemColor: Colors.grey.shade400,
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 11),
+        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 11),
+        iconSize: 22,
+        elevation: 0,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'হোম'),
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_month_rounded), label: 'বিক্রয় রিপোর্ট'),
+          BottomNavigationBarItem(icon: Icon(Icons.person_rounded), label: 'প্রোফাইল'),
+        ],
+      ),
     );
   }
 }
@@ -177,30 +168,40 @@ class _DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
   const _DashboardAppBar({required this.shopName, required this.userId});
 
   @override
-  Size get preferredSize => const Size.fromHeight(80);
+  Size get preferredSize => const Size.fromHeight(75);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: myGreen,
       elevation: 0,
-      toolbarHeight: 80,
+      toolbarHeight: 75,
       automaticallyImplyLeading: false,
-      titleSpacing: 16,
-      // Background leaf pattern. errorBuilder avoids a crash if asset is missing.
-      flexibleSpace: Opacity(
-        opacity: 0.15,
-        child: Image.asset(
-          'assets/images/leaf_pattern.png',
-          fit: BoxFit.cover,
-          width: double.infinity,
-          errorBuilder: (_, _, _) => const SizedBox.shrink(),
+      titleSpacing: 12,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(16))),
+      flexibleSpace: ClipRRect(
+        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(16)),
+        child: Opacity(
+          opacity: 0.1,
+          child: Image.asset(
+            'assets/images/leaf_pattern.png',
+            fit: BoxFit.cover,
+            width: double.infinity,
+            errorBuilder: (_, _, _) => const SizedBox.shrink(),
+          ),
         ),
       ),
       title: Row(
         children: [
-          const Icon(Icons.menu, color: Colors.white, size: 30),
-          width12(),
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Icon(Icons.menu_rounded, color: Colors.white, size: 20),
+          ),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -210,26 +211,34 @@ class _DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
                   shopName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 2),
-                Text(
-                  'ইউজার আইডি : $userId',
-                  style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    'ইউজার আইডি: $userId',
+                    style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600),
+                  ),
                 ),
               ],
             ),
           ),
-          // Rounded-square avatar (as in screenshot)
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Container(
-              width: 48,
-              height: 48,
+          Container(
+            width: 38,
+            height: 38,
+            decoration: BoxDecoration(
               color: Colors.white,
-              // TODO: Image.network(profileUrl, fit: BoxFit.cover)
-              child: const Icon(Icons.person, color: Colors.grey, size: 30),
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 4, offset: const Offset(0, 2)),
+              ],
             ),
+            child: Icon(Icons.person_rounded, color: Colors.grey.shade400, size: 22),
           ),
         ],
       ),
@@ -238,7 +247,7 @@ class _DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 // ─────────────────────────────────────────────────────────────
-// Top info card (grey header + white value box)
+// Top info card
 // ─────────────────────────────────────────────────────────────
 class _InfoCard extends StatelessWidget {
   final String title;
@@ -250,21 +259,43 @@ class _InfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFDDE5DD),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey.shade400, width: 0.8),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 10,
+            spreadRadius: 2,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      foregroundDecoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: myGreen.withValues(alpha: 0.4)),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          ),
           Container(
-            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            decoration: BoxDecoration(
+              color: myGreen.withValues(alpha: 0.08),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+            ),
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: myGreen),
+            ),
+          ),
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-            decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
-            child: Text(value, style: const TextStyle(fontSize: 14, height: 1.3)),
+            child: Text(
+              value,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 12, height: 1.3, fontWeight: FontWeight.w600, color: Colors.black87),
+            ),
           ),
         ],
       ),
@@ -273,7 +304,7 @@ class _InfoCard extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────
-// Action button (QR / Camera) with status icon at the top-right
+// Action button (QR / Camera)
 // ─────────────────────────────────────────────────────────────
 class _ActionButton extends StatelessWidget {
   final String title;
@@ -296,31 +327,59 @@ class _ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: bgColor,
-      elevation: 3,
-      borderRadius: BorderRadius.circular(12),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12),
-        onTap: onTap,
-        child: SizedBox(
-          height: 160,
+    return Container(
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: myGreen.withValues(alpha: 0.4)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 12,
+            spreadRadius: 2,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: onTap,
           child: Stack(
+            alignment: Alignment.center,
             children: [
-              Positioned(top: 6, right: 6, child: Icon(statusIcon, color: statusColor, size: 28)),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(icon, size: 52, color: iconColor),
-                    const SizedBox(height: 18),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: bgColor == Colors.white
+                            ? iconColor.withValues(alpha: 0.1)
+                            : Colors.white.withValues(alpha: 0.3),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(icon, size: 24, color: bgColor == Colors.white ? iconColor : Colors.black87),
+                    ),
+                    const SizedBox(height: 6),
                     Text(
                       title,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                      style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 11, color: Colors.black87),
                     ),
                   ],
+                ),
+              ),
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Container(
+                  padding: const EdgeInsets.all(2),
+                  decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), shape: BoxShape.circle),
+                  child: Icon(statusIcon, color: statusColor, size: 12),
                 ),
               ),
             ],
@@ -343,10 +402,9 @@ class _Row {
 }
 
 class _AllocationCard extends StatelessWidget {
-  final Color headerColor;
   final List<_Row> rows;
 
-  const _AllocationCard({required this.headerColor, required this.rows});
+  const _AllocationCard({required this.rows});
 
   @override
   Widget build(BuildContext context) {
@@ -355,58 +413,81 @@ class _AllocationCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: myGreen, width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 14,
+            spreadRadius: 2,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      foregroundDecoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: myGreen.withValues(alpha: 0.4)),
       ),
       child: Column(
         children: [
           // Header
           Container(
-            color: headerColor,
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            color: myGreen.withValues(alpha: 0.06),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             child: Row(
               children: [
-                const SizedBox(width: 32), // balances refresh icon so title is centered
+                const SizedBox(width: 28),
                 Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.account_balance_wallet, color: myGreen, size: 22),
-                      width10(),
+                      Icon(Icons.account_balance_wallet_rounded, color: myGreen, size: 16),
+                      const SizedBox(width: 6),
                       const Text(
                         'বরাদ্দ',
-                        style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black87),
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black87),
                       ),
                     ],
                   ),
                 ),
-                InkWell(
-                  onTap: () {}, // TODO: refresh
-                  child: Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      color: myBlue,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 2),
+                Material(
+                  color: Colors.white,
+                  shape: const CircleBorder(),
+                  elevation: 1,
+                  child: InkWell(
+                    onTap: () {},
+                    customBorder: const CircleBorder(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Icon(Icons.refresh_rounded, color: myGreen, size: 16),
                     ),
-                    child: const Icon(Icons.refresh, color: Colors.white, size: 20),
                   ),
                 ),
               ],
             ),
           ),
+          const Divider(height: 1, thickness: 1, color: Color(0xFFEEEEEE)),
 
           // Details
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-            child: Column(children: [for (final r in rows) _DetailRow(row: r)]),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            child: Column(
+              children: [
+                for (int i = 0; i < rows.length; i++) ...[
+                  _DetailRow(row: rows[i]),
+                  if (i != rows.length - 1)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 3),
+                      child: Divider(height: 1, thickness: 1, color: Colors.grey.shade100),
+                    ),
+                ],
+              ],
+            ),
           ),
 
           // Bottom actions
           Container(
             decoration: BoxDecoration(
-              color: const Color(0xFFE8ECE8),
-              border: Border(top: BorderSide(color: Colors.grey.shade300, width: 4)),
+              color: Colors.grey.shade50,
+              border: Border(top: BorderSide(color: Colors.grey.shade200, width: 1)),
             ),
             child: IntrinsicHeight(
               child: Row(
@@ -414,11 +495,11 @@ class _AllocationCard extends StatelessWidget {
                   Expanded(
                     child: _BottomAction(icon: Icons.visibility_outlined, label: 'বিস্তারিত দেখুন', onTap: () {}),
                   ),
-                  VerticalDivider(width: 1, thickness: 1, color: Colors.grey.shade400),
+                  VerticalDivider(width: 1, thickness: 1, color: Colors.grey.shade200),
                   Expanded(
                     child: _BottomAction(
                       icon: Icons.insert_chart_outlined,
-                      label: 'বিক্রয় রিপোর্ট\n(সংক্ষিপ্ত)',
+                      label: 'বিক্রয় রিপোর্ট (সংক্ষিপ্ত)',
                       onTap: () {},
                     ),
                   ),
@@ -439,20 +520,31 @@ class _DetailRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = row.isWarning ? Colors.red : Colors.black87;
-    final weight = row.isWarning ? FontWeight.bold : FontWeight.w500;
-    final style = TextStyle(fontSize: 14, color: color, fontWeight: weight);
+    final color = row.isWarning ? Colors.red.shade700 : Colors.black87;
+    final weight = row.isWarning ? FontWeight.bold : FontWeight.w600;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(flex: 4, child: Text(row.label, style: style)),
-          SizedBox(width: 14, child: Text(':', style: style)),
-          Expanded(flex: 7, child: Text(row.value, style: style)),
-        ],
-      ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 5,
+          child: Text(
+            row.label,
+            style: const TextStyle(fontSize: 10, color: Colors.black54, fontWeight: FontWeight.w600),
+          ),
+        ),
+        const SizedBox(
+          width: 8,
+          child: Text(':', style: TextStyle(fontSize: 10, color: Colors.black54)),
+        ),
+        Expanded(
+          flex: 7,
+          child: Text(
+            row.value,
+            style: TextStyle(fontSize: 10, color: color, fontWeight: weight),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -466,23 +558,26 @@ class _BottomAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 18, color: Colors.black87),
-            const SizedBox(width: 8),
-            Flexible(
-              child: Text(
-                label,
-                textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.black87, fontSize: 12),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 14, color: Colors.black87),
+              const SizedBox(width: 4),
+              Flexible(
+                child: Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.black87, fontSize: 10, fontWeight: FontWeight.w600),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -497,27 +592,44 @@ class _TutorialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: const Color(0xFFFDF4FB),
-      elevation: 2,
-      borderRadius: BorderRadius.circular(6),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(6),
-        onTap: () {}, // TODO: open YouTube link
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-          child: Row(
-            children: const [
-              Icon(Icons.smart_display, color: Colors.red, size: 36),
-              SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  'পণ্য বিক্রয়ের নিয়মাবলীর টিউটোরিয়াল দেখুন',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.red.shade200),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.red.withValues(alpha: 0.15),
+            blurRadius: 14,
+            spreadRadius: 2,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: () {}, // TODO: open YouTube link
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(color: Colors.red.shade50, shape: BoxShape.circle),
+                  child: Icon(Icons.smart_display_rounded, color: Colors.red.shade600, size: 22),
                 ),
-              ),
-            ],
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Text(
+                    'পণ্য বিক্রয়ের নিয়মাবলীর টিউটোরিয়াল দেখুন',
+                    style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 12),
+                  ),
+                ),
+                Icon(Icons.arrow_forward_ios_rounded, color: Colors.grey.shade400, size: 14),
+              ],
+            ),
           ),
         ),
       ),
