@@ -6,8 +6,10 @@ import 'package:digital_oms_sheba/core/services/device_info_controller.dart';
 import 'package:digital_oms_sheba/core/services/svg_preload.dart';
 import 'package:digital_oms_sheba/features/auth/information/view/information_list_page.dart';
 import 'package:digital_oms_sheba/features/auth/login/view/login_page.dart';
+import 'package:digital_oms_sheba/features/auth/onboarding/view/location_permission_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geolocator/geolocator.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -88,8 +90,19 @@ class WelcomePage extends StatelessWidget {
                                   subtitle: 'বিদ্যমান অ্যাকাউন্টে প্রবেশ করুন',
                                   svgPath: SvgMyAsset.login,
                                   isPrimary: true,
-                                  onTap: () {
-                                    pushPage(context, const LoginPage());
+                                  onTap: () async {
+                                    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+                                    LocationPermission permission = await Geolocator.checkPermission();
+                                    
+                                    if (!serviceEnabled || permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+                                      if (context.mounted) {
+                                        pushPage(context, const LocationPermissionPage());
+                                      }
+                                    } else {
+                                      if (context.mounted) {
+                                        pushPage(context, const LoginPage());
+                                      }
+                                    }
                                   },
                                 ),
                               ),
