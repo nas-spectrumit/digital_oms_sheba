@@ -65,3 +65,7 @@ app.*.map.json
 **/DerivedData/
 *.xcuserdatad/
 xcuserdata/
+
+# Graphify
+graphify-out/
+.graphify*
